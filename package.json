@@ -1,0 +1,27 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "application to shorten url and track websites",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ronak-Surve/URL-Shortener.git"
+  },
+  "author": "Ronak-Surve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ronak-Surve/URL-Shortener/issues"
+  },
+  "homepage": "https://github.com/Ronak-Surve/URL-Shortener#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1",
+    "nanoid": "^5.0.7",
+    "nodemon": "^3.1.3",
+    "shortid": "^2.2.16"
+  }
+}
