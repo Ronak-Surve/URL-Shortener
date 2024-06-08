@@ -14,7 +14,6 @@ const urlSchema = new mongoose.Schema({
     visitHistory :  [{
         visitCount : {
             type : Number,
-            default : 0,
         }
     }]
 }, {timestamps : true}

@@ -48,11 +48,31 @@ async function ShowAnalyticsForShortURL(req,res)    {
     res.json(entry.visitHistory.length);
 }
 
+async function getAllEntries(req,res) {
+
+    const allUrls = await UrlModel.find({});
+
+    return res.render("home");
+}
+
 
 module.exports = {
     GenerateNewShortURL, 
     RedirectToOriginalURL,
     ShowAnalyticsForShortURL,
+    getAllEntries,
 };
 
+
+
+
+// `
+//         <html>
+//             <head></head>
+//             <body>
+//                 <ol>
+//                     ${allUrls.map((url) => `<li> ${url.shortURL} - ${url.originalURL} - ${url.visitHistory.length}`)}    
+//                 </ol>
+//             </body>
+//     `
 
