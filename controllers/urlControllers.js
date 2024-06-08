@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const urlModel = require("../models/UrlModel");
 const shortid = require("shortid");
+const UrlModel = require("../models/UrlModel");
+const { Timestamp } = require("bson");
 
 async function GenerateNewShortURL(req,res) {
 
@@ -12,11 +14,45 @@ async function GenerateNewShortURL(req,res) {
         shortURL : shortId,
         originalURL : body.url,
         visitHistory : [],
-    })
+    });
 
     return res.status(200).json({message : "short url created", id : shortId});
 }
 
-module.exports = {GenerateNewShortURL};
+async function RedirectToOriginalURL(req,res)  {
+
+    const shortId = req.params.shortId;
+    const entry = await UrlModel.findOneAndUpdate(
+    {
+        shortURL : shortId,
+    },
+    {
+        $push:  {
+            visitHistory : {
+                timestamp : Date.now(),
+            },
+        },
+    }
+    );
+
+    res.redirect(entry.originalURL);
+}
+
+async function ShowAnalyticsForShortURL(req,res)    {
+
+    const shortId = req.params.shortId;
+    const entry = await UrlModel.findOne({
+        shortURL : shortId,
+    })
+
+    res.json(entry.visitHistory.length);
+}
+
+
+module.exports = {
+    GenerateNewShortURL, 
+    RedirectToOriginalURL,
+    ShowAnalyticsForShortURL,
+};
 
 

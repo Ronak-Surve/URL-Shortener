@@ -1,15 +1,15 @@
 const express = require("express");
-const {GenerateNewShortURL} = require("../controllers/urlControllers.js")
+const {GenerateNewShortURL, RedirectToOriginalURL,ShowAnalyticsForShortURL} = require("../controllers/urlControllers.js")
 
 const urlRouter = express.Router();
 
 urlRouter.route("/")
 .post(GenerateNewShortURL);
 
-urlRouter.route("/:short_id")
-.get(GenerateNewShortURL)
+urlRouter.route("/:shortId")
+.get(RedirectToOriginalURL)
 
-urlRouter.route("/:short_id/analytics")
-.get(GenerateNewShortURL);
+urlRouter.route("/:shortId/analytics")
+.get(ShowAnalyticsForShortURL);
 
 module.exports = urlRouter;
