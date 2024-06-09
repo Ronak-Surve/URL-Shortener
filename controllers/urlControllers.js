@@ -16,7 +16,10 @@ async function GenerateNewShortURL(req,res) {
         visitHistory : [],
     });
 
-    return res.status(200).json({message : "short url created", id : shortId});
+    return res.render("home",{
+        id : shortId,
+    })
+    // return res.status(200).json({message : "short url created", id : shortId});
 }
 
 async function RedirectToOriginalURL(req,res)  {
@@ -62,17 +65,3 @@ module.exports = {
     ShowAnalyticsForShortURL,
     getAllEntries,
 };
-
-
-
-
-// `
-//         <html>
-//             <head></head>
-//             <body>
-//                 <ol>
-//                     ${allUrls.map((url) => `<li> ${url.shortURL} - ${url.originalURL} - ${url.visitHistory.length}`)}    
-//                 </ol>
-//             </body>
-//     `
-

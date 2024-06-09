@@ -1,9 +1,9 @@
 const express = require("express");
+const staticControllers = require("../controllers/staticControllers");
 
 const staticRoutes = express.Router();
 
-staticRoutes.get("/", (req,res) =>  {
-    return res.render("home");
-})
+staticRoutes.route("/")
+.get(staticControllers);
 
 module.exports = staticRoutes;
