@@ -10,4 +10,9 @@ async function getAllUrls(req,res) {
     });
 }
 
-module.exports = getAllUrls;
+async function loadSignUpPage(req,res)  {
+
+    return res.render("signup");
+}
+
+module.exports = {getAllUrls, loadSignUpPage};

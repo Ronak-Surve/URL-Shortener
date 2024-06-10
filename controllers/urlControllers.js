@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const urlModel = require("../models/UrlModel");
 const shortid = require("shortid");
 const UrlModel = require("../models/UrlModel");
 const { Timestamp } = require("bson");
@@ -38,7 +37,7 @@ async function RedirectToOriginalURL(req,res)  {
     }
     );
 
-    res.redirect(entry.originalURL);
+    return res.redirect(entry.originalURL);
 }
 
 async function ShowAnalyticsForShortURL(req,res)    {
@@ -48,20 +47,11 @@ async function ShowAnalyticsForShortURL(req,res)    {
         shortURL : shortId,
     })
 
-    res.json(entry.visitHistory.length);
+    return res.json(entry.visitHistory.length);
 }
-
-async function getAllEntries(req,res) {
-
-    const allUrls = await UrlModel.find({});
-
-    return res.render("home");
-}
-
 
 module.exports = {
     GenerateNewShortURL, 
     RedirectToOriginalURL,
     ShowAnalyticsForShortURL,
-    getAllEntries,
 };

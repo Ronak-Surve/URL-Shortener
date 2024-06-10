@@ -1,9 +1,14 @@
 const express = require("express");
-const staticControllers = require("../controllers/staticControllers");
+const {getAllUrls, loadSignUpPage} = require("../controllers/staticControllers");
 
 const staticRoutes = express.Router();
 
+console.log("hello")
+
 staticRoutes.route("/")
-.get(staticControllers);
+.get(getAllUrls);
+
+staticRoutes.route("/signup")
+.get(loadSignUpPage);
 
 module.exports = staticRoutes;
