@@ -2,17 +2,20 @@ const mongoose = require("mongoose");
 const shortid = require("shortid");
 const UrlModel = require("../models/UrlModel");
 const { Timestamp } = require("bson");
+const userModel = require("../models/userModel");
 
 async function GenerateNewShortURL(req,res) {
 
     const body = req.body;
     const shortId = shortid();
-    if(!req.body) return res.status(400).json({error : "url is required"});
+    console.log(req.user);
+    if(!body) return res.status(400).json({error : "url is required"});
 
-    await urlModel.create({
+    await UrlModel.create({
         shortURL : shortId,
         originalURL : body.url,
         visitHistory : [],
+        createdBy : req.user._id,
     });
 
     return res.render("home",{
@@ -24,9 +27,11 @@ async function GenerateNewShortURL(req,res) {
 async function RedirectToOriginalURL(req,res)  {
 
     const shortId = req.params.shortId;
+    console.log(shortId);
     const entry = await UrlModel.findOneAndUpdate(
     {
         shortURL : shortId,
+        createdBy : req.user._id,
     },
     {
         $push:  {
@@ -45,6 +50,7 @@ async function ShowAnalyticsForShortURL(req,res)    {
     const shortId = req.params.shortId;
     const entry = await UrlModel.findOne({
         shortURL : shortId,
+        createdBy : req.user._id,
     })
 
     return res.json(entry.visitHistory.length);
