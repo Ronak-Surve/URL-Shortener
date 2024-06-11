@@ -8,6 +8,7 @@ urlRouter.route("/")
 
 urlRouter.route("/:shortId")
 .get(RedirectToOriginalURL)
+.post(RedirectToOriginalURL);
 
 urlRouter.route("/:shortId/analytics")
 .get(ShowAnalyticsForShortURL);

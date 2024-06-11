@@ -15,7 +15,12 @@ const urlSchema = new mongoose.Schema({
         visitCount : {
             type : Number,
         }
-    }]
+    }],
+    createdBy :   {
+        type : mongoose.Types.ObjectId,
+        required : true,
+        ref : "users",
+    }
 }, {timestamps : true}
 );
 

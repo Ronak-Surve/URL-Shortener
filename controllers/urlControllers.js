@@ -31,7 +31,6 @@ async function RedirectToOriginalURL(req,res)  {
     const entry = await UrlModel.findOneAndUpdate(
     {
         shortURL : shortId,
-        createdBy : req.user._id,
     },
     {
         $push:  {
