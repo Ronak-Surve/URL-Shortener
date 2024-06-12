@@ -3,6 +3,12 @@ const UrlModel = require("../models/UrlModel");
 
 async function getAllUrls(req,res) {
 
+    const user = req.user;
+    
+    if(!user) {
+        return res.redirect("/login");
+    }
+
     const allUrls = await UrlModel.find({
         createdBy : req.user._id,
     });

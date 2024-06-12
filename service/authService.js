@@ -1,13 +1,38 @@
-const sessionIdToUserMap = new Map();
+// const sessionIdToUserMap = new Map();
 
-function setUser(id,user)  {
+// function setUser(id,user)  {
 
-    sessionIdToUserMap.set(id,user);
+//     sessionIdToUserMap.set(id,user);
+// }
+
+// function getUser(id)    {
+
+//     return sessionIdToUserMap.get(id);
+// }
+//stateful based auth
+
+const jwt = require("jsonwebtoken");
+const secretKey = "Ronak@12345";
+
+function setUser(user)  {
+
+    return jwt.sign({
+        email : user.email,
+        _id : user._id,
+    }, secretKey);
 }
 
-function getUser(id)    {
+function getUser(token) {
 
-    return sessionIdToUserMap.get(id);
+    if(!token)  return null;
+    try {
+        return jwt.verify(token, secretKey);
+    }
+    catch(err)  {
+        return null;
+    }
+    
 }
 
 module.exports = {setUser, getUser};
+

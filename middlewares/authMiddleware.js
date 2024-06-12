@@ -2,9 +2,9 @@ const {setUser, getUser}  = require("../service/authService");
 
 async function checkForLoggedInUser(req , res, next)    {
 
-    const id = req.cookies.uid;
+    const token = req.cookies.token;
 
-    const user = getUser(id);
+    const user = getUser(token);
 
     if(!user)   {
         return res.redirect("/login");
@@ -15,14 +15,14 @@ async function checkForLoggedInUser(req , res, next)    {
     next();
 }
 
-async function checkUserAuth(req,res,next)   {
+async function IdentifyUser(req,res,next)   {
 
-    const userUid = req.cookies.uid;
+    const token = req.cookies.token;
 
-    const user = getUser(userUid);
+    const user = getUser(token);
 
     req.user = user;
     next();
 }
 
-module.exports = {checkForLoggedInUser, checkUserAuth};
+module.exports = {checkForLoggedInUser, IdentifyUser};

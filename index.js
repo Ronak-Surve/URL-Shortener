@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const urlRoutes = require("./routes/urlRoutes");
 const staticRoutes = require("./routes/staticRoutes")
 const userRoutes = require("./routes/userRoutes");
-const {checkForLoggedInUser, checkUserAuth} = require("./middlewares/authMiddleware");
+const {checkForLoggedInUser, IdentifyUser} = require("./middlewares/authMiddleware");
 
 //connections
 const connectMongoDB = require("./connection");
@@ -28,6 +28,6 @@ app.set('views', path.resolve("./views"))
 
 app.use("/url", checkForLoggedInUser,urlRoutes);
 app.use("/user", userRoutes);
-app.use("/", checkUserAuth, staticRoutes);
+app.use("/", IdentifyUser, staticRoutes);
 
 app.listen(process.env.PORT, () =>  {console.log(`server running on PORT ${process.env.PORT}`)});
