@@ -25,4 +25,15 @@ async function IdentifyUser(req,res,next)   {
     next();
 }
 
-module.exports = {checkForLoggedInUser, IdentifyUser};
+function restrictAccessTo(roles)    {
+
+    return async function (req,res,next)  {
+
+        if(!req.user)    return res.redirect("/");
+
+        if(!(req.user.role) || !roles.include(req.user.role))   return res.end("Unauthorized");
+
+        next();
+    };
+}
+module.exports = {checkForLoggedInUser, IdentifyUser, restrictAccessTo};

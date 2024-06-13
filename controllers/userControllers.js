@@ -35,7 +35,7 @@ async function handleUserLogin(req,res) {
     if(!user)   {
         return res.render("login",  {
             error : "Invalid username or password",
-        })
+        });
     }
     
     // const sessionId = uuidv4();
@@ -48,7 +48,7 @@ async function handleUserLogin(req,res) {
 
     res.cookie("token", token);
 
-    return res.redirect("/");
+    return res.redirect("/home");
 }
 
 module.exports = {handleUserSignUp, handleUserLogin};

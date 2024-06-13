@@ -4,10 +4,11 @@ const {getAllUrls, loadOptionsPage, loadSignUpPage, loadLoginPage} = require("..
 const staticRoutes = express.Router();
 
 staticRoutes.route("/")
-.get(getAllUrls);
+.get(loadOptionsPage)
+.post(loadOptionsPage)
 
-staticRoutes.route("/options")
-.get(loadOptionsPage);
+staticRoutes.route("/home")
+.get(getAllUrls);
 
 staticRoutes.route("/signup")
 .get(loadSignUpPage);

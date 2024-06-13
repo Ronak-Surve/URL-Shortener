@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const urlRoutes = require("./routes/urlRoutes");
 const staticRoutes = require("./routes/staticRoutes")
 const userRoutes = require("./routes/userRoutes");
-const {checkForLoggedInUser, IdentifyUser} = require("./middlewares/authMiddleware");
+const {checkForLoggedInUser, IdentifyUser, restrictAccessTo} = require("./middlewares/authMiddleware");
 
 //connections
 const connectMongoDB = require("./connection");
@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.resolve("./views"))
 
-app.use("/url", checkForLoggedInUser,urlRoutes);
+app.use("/url", checkForLoggedInUser, restrictAccessTo(['NORMAL']), urlRoutes);
 app.use("/user", userRoutes);
 app.use("/", IdentifyUser, staticRoutes);
 
