@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.resolve("./views"))
 
-app.use("/url", checkForLoggedInUser, restrictAccessTo(['NORMAL']), urlRoutes);
+app.use("/url", checkForLoggedInUser, restrictAccessTo(["NORMAL"]), urlRoutes);
 app.use("/user", userRoutes);
 app.use("/", IdentifyUser, staticRoutes);
 

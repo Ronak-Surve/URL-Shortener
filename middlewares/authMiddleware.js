@@ -25,14 +25,15 @@ async function IdentifyUser(req,res,next)   {
     next();
 }
 
-function restrictAccessTo(roles)    {
+function restrictAccessTo(roles = [])    {
 
-    return async function (req,res,next)  {
+    return function (req,res,next)  {
 
-        if(!req.user)    return res.redirect("/");
+        if(!req.user)    return res.redirect("/login");
 
-        if(!(req.user.role) || !roles.include(req.user.role))   return res.end("Unauthorized");
+        if(!(req.user.role))   return res.end("Role undefined");
 
+        if(!roles.includes(req.user.role))  return res.end("Unauthorized");
         next();
     };
 }

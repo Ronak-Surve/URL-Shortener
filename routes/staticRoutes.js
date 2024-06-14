@@ -1,5 +1,6 @@
 const express = require("express");
 const {getAllUrls, loadOptionsPage, loadSignUpPage, loadLoginPage} = require("../controllers/staticControllers");
+const { restrictAccessTo } = require("../middlewares/authMiddleware");
 
 const staticRoutes = express.Router();
 
@@ -7,7 +8,7 @@ staticRoutes.route("/")
 .get(loadOptionsPage)
 .post(loadOptionsPage)
 
-staticRoutes.route("/home")
+staticRoutes.route("/home", restrictAccessTo(["NORMAL"]))
 .get(getAllUrls);
 
 staticRoutes.route("/signup")
